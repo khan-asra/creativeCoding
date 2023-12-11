@@ -16,15 +16,16 @@ window.addEventListener('load', function () {
 
     //ctx.fillRect(50,50,100,100);
     //effect setting
-    let size = canvas.width< canvas.height ? canvas.width*0.3: canvas.height * 0.3
+    let size = canvas.width < canvas.height ? canvas.width * 0.3 : canvas.height * 0.3
+    const maxLevel = 4
+    const branches = 2
+
     let sides = 5
-    let maxLevel = 4
     let spread = 0.5
-    let branches = 2
     let scale = 0.5
-    let color = 'hsl('+Math.random()*360+',100%,50%)'
+    let color = 'hsl(' + Math.random() * 360 + ',100%,50%)'
 
-
+    const randomizeButton = this.document.getElementById('randomizeButton')
 
     function drawBranch(level) {
         if (level > maxLevel) return;
@@ -48,10 +49,7 @@ window.addEventListener('load', function () {
             drawBranch(level + 1)
             ctx.restore()
         }
-
-
     }
-
 
 
 
@@ -59,39 +57,24 @@ window.addEventListener('load', function () {
         ctx.save()
         ctx.strokeStyle = color
         ctx.translate(canvas.width / 2, canvas.height / 2)
-        // ctx.scale(1, 1)
-        // ctx.rotate(0)
         for (let index = 0; index < sides; index++) {
             ctx.rotate((Math.PI * 2) / sides)
             drawBranch(0)
         }
         ctx.restore()
-
     }
-
     drawFractal()
 
-    //ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-    // ctx.beginPath();
-    // ctx.moveTo(canvas.width / 2, canvas.height / 2)
-    // ctx.moveTo(0, 0)
-    // ctx.lineTo(size, 0)
-    //https://www.gojobs.gov.on.ca/Preview.aspx?Language=English&JobID=199701
-
-    // for (let index = 0; index < sides; index++) {
-
-    //     ctx.beginPath();
-    //     ctx.moveTo(0, 0)
-    //     ctx.lineTo(size, 0)
-    //     ctx.stroke()
-    //     ctx.rotate((Math.PI * 2) / sides)
-    //     ctx.scale(0.97, 0.97)
-    //     ctx.translate(3, 6)
-
-    // }
+    function randomizeFractal() {
+        sides = Math.random() * 7 + 2
+        scale = Math.random() * 0.2 + 0.4
+        spread = Math.random() * 2.9 + 0.1
+        color = 'hsl(' + Math.random() * 360 + ',100%,50%)'
+        drawFractal()
+    }
 
 
+    randomizeButton.addEventListener('click', randomizeFractal)
 
 
 })
