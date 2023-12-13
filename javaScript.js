@@ -54,23 +54,41 @@ window.addEventListener('load', function () {
 
 
     function drawFractal() {
+    
+    
         ctx.save()
         ctx.strokeStyle = color
         ctx.translate(canvas.width / 2, canvas.height / 2)
         for (let index = 0; index < sides; index++) {
             ctx.rotate((Math.PI * 2) / sides)
             drawBranch(0)
+            
         }
+        
         ctx.restore()
+       
+     
     }
     drawFractal()
-
+let count =0
     function randomizeFractal() {
+       
         sides = Math.random() * 7 + 2
         scale = Math.random() * 0.2 + 0.4
         spread = Math.random() * 2.9 + 0.1
         color = 'hsl(' + Math.random() * 360 + ',100%,50%)'
-        drawFractal()
+        
+       // drawFractal()
+        if (count < 5){
+            drawFractal()
+            count++;
+        }
+        else{
+            ctx.clearRect(0,0,canvas.width,canvas.height)
+            drawFractal()
+            count=0
+        }
+      
     }
 
 
